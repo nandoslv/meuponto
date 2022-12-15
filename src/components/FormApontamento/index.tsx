@@ -3,14 +3,10 @@ import { Apontamento } from "../../types/Apontamento"
 
 interface Props {
     apontamento: Apontamento,
-    handleSetApontamento: (apontamento: Apontamento) => void,
+    setApontamento: React.Dispatch<React.SetStateAction<Apontamento>>,
 }
 
-export default function FormApontamento({ apontamento, handleSetApontamento }: Props) {
-
-    function handleUpdateApontamento(apontamento:Apontamento){
-        handleSetApontamento(apontamento);
-    }
+export default function FormApontamento({ apontamento, setApontamento }: Props) {
 
     return (
         <>
@@ -19,7 +15,7 @@ export default function FormApontamento({ apontamento, handleSetApontamento }: P
                     <div className="input-group">
                         <div className="form-floating">
                             <input type="time"
-                                onChange={(e) => (handleUpdateApontamento({ ...apontamento, entrada: e.target.value }))}
+                                onChange={(e) => (setApontamento({ ...apontamento, entrada: e.target.value }))}
                                 className="form-control form-control-sm"
                                 id={`entrada-${apontamento.id}`}
                                 placeholder="00:00" />
@@ -29,7 +25,7 @@ export default function FormApontamento({ apontamento, handleSetApontamento }: P
                         </div>
                         <div className="form-floating">
                             <input type="time"
-                                onChange={(e) => (handleUpdateApontamento({ ...apontamento, saida: e.target.value }))}
+                                onChange={(e) => (setApontamento({ ...apontamento, saida: e.target.value }))}
                                 className="form-control form-control-sm"
                                 id={`saida-${apontamento.id}`}
                                 placeholder="00:00" />

@@ -1,21 +1,31 @@
-import { ApontamentosDia } from "../../types/ApotamentosDia"
+import { Apontamento } from "../../types/Apontamento"
+import { ApontamentosDia } from "../../types/ApotamentosDia";
 
 interface Props{
-    apontamentosDia: ApontamentosDia[]
+    apontamentos: Apontamento[]
 }
 
-export default function ListaTicketDiario({apontamentosDia}:Props){
+export default function ListaTicketDiario({apontamentos}:Props){
+
+    const apontamentosAgrupados:ApontamentosDia[] = apontamentos.reduce((apontamentosAgrupados:any, atual:any) => {
+        apontamentosAgrupados[atual.data] = apontamentosAgrupados[atual.data] || [];
+        apontamentosAgrupados[atual.data].push(atual);
+        return apontamentosAgrupados;
+        }, {}
+    );
+
+
     return(
         <>
       {
-        apontamentosDia.length
+        apontamentosAgrupados.length
         ?
-        apontamentosDia.map((apDia, indexDia) =>
+        apontamentosAgrupados.map((apDia, indexDia) =>
             (
-              <div className="list-group mb-3" key={apDia.id}>
+              <div className="list-group mb-3" key={apDia.data}>
                 <div className="list-group-item list-group-item-action" aria-current="true">
                   <div className="d-flex w-100 justify-content-between">
-                    <h6 className="mb-1">{apDia.data} - {apDia.id}</h6>
+                    <h6 className="mb-1">{apDia.data}</h6>
                   </div>
                   <div className="d-flex justify-content-around">
                     <div className="h6">Entrada</div>
